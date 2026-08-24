@@ -1,0 +1,122 @@
+# Sports Performance Analysis System - Commands
+
+## ============================================================
+## Windows PowerShell
+## ============================================================
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+.venv\Scripts\Activate.ps1
+
+# If activation fails due to execution policy, run:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the Streamlit application
+streamlit run app.py
+
+# Run tests
+pytest -v
+
+# Run tests with coverage
+pytest -v --cov=src --cov-report=html
+
+## ============================================================
+## Windows CMD
+## ============================================================
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+.venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the Streamlit application
+streamlit run app.py
+
+# Run tests
+pytest -v
+
+## ============================================================
+## Linux / macOS
+## ============================================================
+
+# Create virtual environment
+python3 -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the Streamlit application
+streamlit run app.py
+
+# Run tests
+pytest -v
+
+## ============================================================
+## Generate Sample Data
+## ============================================================
+
+# Generate sample CSV
+python -c "from src.utils.generate_sample_data import generate_sample_data; generate_sample_data(output_csv='data/raw/sample_sports_data.csv', output_json='data/raw/sample_sports_data.json')"
+
+# Generate test video
+python -c "from src.utils.generate_sample_data import generate_test_video; generate_test_video('data/videos/sample_test_video.mp4')"
+
+# Generate all sample data at once
+python -c "
+from src.utils.generate_sample_data import generate_sample_data, generate_test_video
+generate_sample_data(output_csv='data/raw/sample_sports_data.csv', output_json='data/raw/sample_sports_data.json')
+generate_test_video('data/videos/sample_test_video.mp4')
+print('All sample data generated successfully!')
+"
+
+## ============================================================
+## PostgreSQL Setup
+## ============================================================
+
+# Option 1: Using Docker
+docker run --name sports-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=sports_performance -p 5432:5432 -d postgres:15
+
+# Option 2: Using docker-compose (if available)
+docker compose up -d
+docker compose down
+
+# Set environment variables (PowerShell)
+$env:DATABASE_URL="postgresql://postgres:postgres@localhost:5432/sports_performance"
+
+# Set environment variables (CMD)
+set DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sports_performance
+
+# Set environment variables (Linux/macOS)
+export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sports_performance
+
+## ============================================================
+## Optional Dependencies
+## ============================================================
+
+# Install MediaPipe for pose estimation
+pip install mediapipe
+
+# Install Ultralytics for YOLO tracking
+pip install ultralytics
+
+## ============================================================
+## Project Structure Verification
+## ============================================================
+
+# List all project files (PowerShell)
+Get-ChildItem -Recurse -Name | Sort-Object
+
+# List all project files (Linux/macOS)
+find . -type f | sort
